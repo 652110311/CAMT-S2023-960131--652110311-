@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display-Position</title>
+
+    <style>
+        .playground {
+            position: relative;
+            padding:12px;
+            background-color: rgba(12, 127, 228, 0.295);
+            border: 1px dashed #666;
+            margin: 12px;
+            
+        }
+        .box {
+            width: 80px;
+            height: 80px;
+            border: 1px solid rgb(255, 0, 85);
+            background-color: rgba(240, 19, 19, 0.411);
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Box Model</h1>
+
+    <div class="playground">
+        <div
+            id="simple-box-content"
+            style="
+                background-color: pink;
+                padding: 25px;"
+        >
+            <div 
+                id="simple-box"
+                style="
+                    padding: 25px;
+                    background-color:yellow;
+                    border: 25px solid orange;
+                    "
+                >
+                    <div
+                        style="background-color: rgb(45, 228, 45);"
+                    > Simple Box </div>   
+            </div>
+        </div>
+    </div>
+
+    <h1>CSS Display</h1>
+        <h2>inline</h2>
+
+    <div class="playground">        
+        <div style="display: inline; background-color: yellow;">        
+            inline text1        
+        </div>      
+        <div style="display: inline; background-color: rgb(40, 187, 126);">     
+            inline text2        
+        </div>      
+        <div style="display: inline; background-color: rgb(255, 0, 157);">      
+            inline text3        
+        </div>      
+        <div style="display: inline; background-color: rgb(0, 204, 255);">      
+            inline text4        
+        </div>      
+        <div style="display: inline; background-color: rgb(0, 255, 34);">       
+            inline text5        
+        </div>      
+    </div>      
+
+        <h2>Block</h2>
+
+        <div class="playground">        
+            <div style="display: block; background-color: yellow; ">        
+                Block text1        
+            </div>      
+            <div style="display: block; background-color: rgb(40, 187, 126);">     
+                Block text2        
+            </div>      
+            <div style="display: block; background-color: rgb(255, 0, 157);">      
+                Block text3        
+            </div>      
+            <div style="display: block; background-color: rgb(0, 204, 255);">      
+                Block text4        
+            </div>      
+            <div style="display: block; background-color: rgb(0, 255, 34);">       
+                Block text5        
+            </div>      
+        </div>  
+
+        <h2>inline-Block</h2>
+
+        <div class="playground">        
+            <div style="display:inline-block;  ">        
+                Apple       
+            </div>      
+            <div style="display:inline-block;  ">     
+                Orange        
+            </div>      
+            <div style="display:inline-block;  ">      
+                Mango        
+            </div>         
+            <div style="display:inline-block;  ">       
+                Watermelon        
+            </div>      
+        </div>
+        
+        <h2>none</h2>
+
+        <div class="playground">        
+            <div style="display:inline-block;  ">        
+                Apple       
+            </div>      
+            <div style="display:inline-block;  ">     
+                Orange        
+            </div>      
+            <div style="display:none;  ">      
+                Mango        
+            </div>         
+            <div style="display:inline-block;  ">       
+                Watermelon        
+            </div>      
+        </div>
+        
+        <h2>display:none vs visibility:hidden</h2>
+
+        <div class="playground">        
+            <div style="display:inline-block;  ">        
+                Apple       
+            </div>      
+            <div style="display:inline-block; visibility: hidden;  ">     
+                Orange        
+            </div>      
+            <div style="display:none;  ">      
+                Mango        
+            </div>         
+            <div style="display:inline-block;  ">       
+                Watermelon        
+            </div>      
+        </div>
+        
+        <h1>CSS Position</h1>
+        <h2>static</h2>
+        
+        <div class="playground">
+
+            <div class="box" style="position: static; "></div>
+            
+        </div>
+
+        <h2>absolute</h2>
+        <h3>fixed width/height</h3>
+        
+        <div class="playground">
+
+            <div class="box" style="position: absolute; "></div>
+            
+        </div>
+
+        <h3>no width/height</h3>
+        <div class="playground">
+
+            <div class="box" style="position: absolute; width: 100%; height: 0%;"></div>
+            
+        </div>
+
+        <h3>fixed width/height + right/top</h3>
+        <div class="playground">
+            <div style="
+                  position: relative;
+                  border: 1px solid #999;
+                  background-color: azure;
+                  width: 100%;
+                  height: 100px;"
+            >
+                <div style="
+                    background-color: rgb(252, 2, 85);
+                    width: 24px;
+                    height: 24px;
+                    border-radius: 50%;
+                    text-align: center;
+                    position: absolute;
+                    right: -12px;
+                    top:-12px; 
+                    
+                    ">
+                    x
+                </div>   
+        
+            </div>
+            
+        </div>
+        
+        <h2>Backdrop + banner</h2>
+       
+            <div style="
+                position: fixed;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                top: 0;
+                background-color: #00000056;"
+            >
+                <!-- margin: 0 auto; จัดตำแหน่งตรงกลางแนวนอนโดยกำหนดขอบเขตซ้ายและขวาเป็น auto
+                    transform:translateY(50%); ให้เลื่อนลงด้านล่าง 50% ของความสูงของตัวเอง -->
+                <div style="
+                    background-color: aliceblue;
+                    width: 300px;
+                    text-align: center;
+                    color: #ff579d;
+                    font-size: 32px;
+                    margin: 0 auto; 
+                    margin-top: 50%;
+                    transform:translateY(50%);">
+                    Songkran Fesival <br>2023
+                </div>
+           
+            </div>
+        
+        <h2>Cookies consent</h2>
+        <div class="playground">
+            <div style="
+                position: fixed;
+                background-color: rgb(235, 185, 120);
+                height: 125px;
+                width: 100%;
+                left:50px;
+                bottom: 0;
+                padding: 12px;"
+                
+            >
+                accept cookies consent
+             </div>
+        </div>
+</body>
+</html>
