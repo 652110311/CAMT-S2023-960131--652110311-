@@ -6,25 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>random-card</title>
     <style>
-        
+
         .container {
-            
-           
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            right: 0;
             display :flex;
             flex-direction: column;
-            background-color: #ffe5ec;
-            border: 2px solid black;
-            border-radius: 20px;
             justify-content: center;
             align-items: center;
-           
+            background-color: #ffe5ec;
+            border: 2px solid black;   
+            border-radius: 20px;
+            height: 100%;
         }
         .content {
             display:flex;
             flex-direction: row;
             justify-content: space-evenly; 
             flex-wrap: wrap;
-           
            
         }
         .card-item {
@@ -41,11 +43,13 @@
         .random-botton{
             position: fixed;
             bottom: 0;
+            left: 0;
             width: 100%;
             height: 100px;
             border: 2px solid black;
             border-radius: 0 0 20px  20px;
             background-color: #fb6f92;
+            font-Size:50px;
         }
         .card-type {
             
@@ -74,35 +78,33 @@
         <div class="content">
             <div class="card-item">
                 <script>
-                    window.onclick= function()
+                     function onclickBotton ()
                     {
+
+                
                         // card number and type
                         var CARD_TYPE = ['♣', '♦', '♥', '♠']
-                        var CARD_NUMBER = ['A', '1', '2', '3', '4', '5', '6',' 7', '8', '9', '10', 'J', 'Q', 'K']
+                        var CARD_NUMBER = ['A', '2', '3', '4', '5', '6','7', '8', '9', '10', 'J', 'Q', 'K']
                         
                         var body_type
                         var body_number 
                         var bottom
         
-                        for(let i=0; i<5; i++)
+                        for(var i=0; i<4; i++)
                         {   
                             //clear old content
                             document.getElementsByClassName('card-type')[i].innerHTML = '';
                             document.getElementsByClassName('card-number')[i].innerHTML = '';
                             
-                            //
                             body_type = document.getElementsByClassName('card-type')[i]
                             body_number = document.getElementsByClassName('card-number')[i]
                             bottom = document.getElementsByClassName('bottom-item')[i]
 
+                            // random function
                             function random(max) {
                                 return parseInt(Math.random() * max) % max
                                 }
-                    
-                            // how to use random function
-                            // random function
-                            // max: number > 0
-                            // return [0, max -1]
+                  
                             var cardType = CARD_TYPE[random(CARD_TYPE.length)]
                             var cardNumber = CARD_NUMBER[random(CARD_NUMBER.length)]
 
@@ -134,7 +136,6 @@
                                     bottom.style.borderRadius = ' 0 0 5px 5px ' 
                                     bottom.style.borderTop = 'unset'
 
-
                                 }
                             else 
                                 {
@@ -157,6 +158,7 @@
                         }    
                    
                     }
+                
                 </script>
                 <div class="card-type"></div>
                 <div class="card-number"></div>
@@ -183,30 +185,9 @@
             </div>  
         </div>
 
-        <div class="random-botton">
-            
-            <script>
-                window.onload = function()
-                {
-                    var body = document.getElementsByClassName('random-botton')[0]
-                    var botton = document.createElement('botton')
-                    botton.innerText = "Click to Random"
-                    botton.style.fontSize = '50px'
-                    botton.style.width='100%'
-                    botton.style.height= '100px'
-                    botton.style.display= 'flex'
-                    botton.style.justifyContent='center'
-                    botton.style.alignItems ='center'
-                    
-                    body.append(botton)
-                    
-                    botton.addEventListener('click',function ()
-                    {
-                        console.log('botton : click')
-                    })
-                }
-            </script>
-       
+        <div class="footer">
+           <button class="random-botton" onclick="onclickBotton()">Click to Random</button>
+          
         </div>
        
     </div>
