@@ -138,7 +138,7 @@
           </div>
         </div>
         <div class="footer">
-            <button class="new-game-button"  onclick="renderCardList()">New Game</button>
+            <button class="new-game-button"  >New Game</button>
         </div>
     </div>
     
@@ -147,34 +147,33 @@
         var CARD_NUMBER = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'] 
         var cardList = new Array(52)
 
-        function generateCards ()
-        {
-            let temp =0;
-            for(let i=0; i<CARD_TYPE.length; i++)
-            {
-                for(let j=0; j<CARD_NUMBER.length; j++)
-                {
-                    cardList[temp] = new Array(2);
-                    cardList[temp][0] = CARD_TYPE[i];
-                    cardList[temp][1] = CARD_NUMBER[j];
-                    temp++
-                    console.log(cardList[temp]);
-                }
-            }
-        }
+        // function generateCards ()
+        // {
+        //     let temp =0;
+        //     for(let i=0; i<CARD_TYPE.length; i++)
+        //     {
+        //         for(let j=0; j<CARD_NUMBER.length; j++)
+        //         {
+        //             cardList[temp] = new Array(2);
+        //             cardList[temp][0] = CARD_TYPE[i];
+        //             cardList[temp][1] = CARD_NUMBER[j];
+        //             temp++
+        //            console.log()
+        //         }
+        //     }
+        // }
         
         window.onload = function (event) 
         {
-            generateCards();
-            shuffleCardList();
-            renderCardList();     
-            //randomCardList();
+            randomCardList() 
+            renderCardList(); 
         }
 
         function buttonclick (){ 
             console.log("click")
-            renderCardList();
-            shuffleCardList();
+            randomCardList()
+            renderCardList(); 
+
         }
 
           
@@ -189,31 +188,33 @@
                 return 0.5 - Math.random();})
         }
 
-        // function randomCardList ()
-        // {
-        //     cardList=[]
-        //     for(let i=0; i<CARD_TYPE.length; i++)
-        //     {
-        //         for(let j=0; j<CARD_NUMBER.length; j++)
-        //         {
-        //             cardList.push(
-        //                 {
-        //                     id: i+'_' + J + '_1',
-        //                     value : [[CARD_TYPE[i]],CARD_NUMBER[j]],
-        //                     isFaceDown : !!(Math.round(Math.random()%2))
-        //                 }
-        //             )
-        //             cardList.push(
-        //                 {
-        //                     id: i+'_' + J + '_2',
-        //                     value : [[CARD_TYPE[i]],CARD_NUMBER[j]],
-        //                     isFaceDown : !!(Math.round(Math.random()%2))
-        //                 }
-        //             )
-        //         }
-        //     }
-        //     shuffleCardList()
-        // }
+        function randomCardList ()
+        {
+            
+            for(let i=0; i<CARD_TYPE.length; i++)
+            {
+                for(let j=0; j<13; j++)
+                {
+                    cardList.push(
+                        {
+                            id: i+'_' +j+ '_1',
+                            value : [[CARD_TYPE[i]],CARD_NUMBER[j]],
+                            isFaceDown : !!(Math.round(Math.random()%2))
+                           
+                        }
+                    )
+                    cardList.push(
+                        {
+                            id: i+'_' + j + '_2',
+                            value : [[CARD_TYPE[i]],CARD_NUMBER[j]],
+                            isFaceDown : !!(Math.round(Math.random()%2))
+                        }
+                    )
+                }
+            }
+            console.log(cardList)
+            shuffleCardList()
+        }
         
         const button = document.querySelector('button');
         button.addEventListener('click',function(){buttonclick()});
@@ -229,27 +230,24 @@
             {
                 // TODO: define cardZoneElm here
                 var cardZoneElm = document.getElementsByClassName("card-zone")[0]
-                
-                var boolean = [true,false]
-                
-                cardZoneElm.innerHTML ='';
+                cardZoneElm.innerHTML = ''
                 // before append any DOM(s), you need to clear all children of cardZoneElm
                 for (var idx=0; idx < cardList.length; idx++) 
                     {
                         // TODO:
                         // if isFaceDown is true, create a card component with 'face-down' class
-                       cardList[idx].isFaceDown =  boolean[random(boolean.length)]
-                      
+                       var card = cardList[idx]
+                       var cardElm
                        
-                        if(cardList[idx].isFaceDown === true)
+                        if(card.isFaceDown)
                         {
                            cardElm = htmlToElem(
                             '<div class="card-face-down"><div class="card-title" ></div><div class="card-body"> ?</div> </div>')
                         }
                         else{ 
                             cardElm = htmlToElem(
-                                '<div class="card"><div class="card-title">'+cardList[idx][0]+' </div><div class="card-body">'+cardList[idx][1]+' </div></div>' )
-                            if(cardList[idx][0] =='♥' || cardList[idx][0] =='♦'){
+                                '<div class="card"><div class="card-title">'+card.value[0]+' </div><div class="card-body">'+card.value[1]+' </div></div>' )
+                            if(cardList[idx].value[0] =='♥' || cardList[idx].value[0] =='♦'){
                                 cardElm.classList.add('red')
                             }
                             else
@@ -257,36 +255,41 @@
                                 cardElm.classList.remove('red')
                             }
                         }
-                        
+                
+                        cardElm.value = card
+                        cardElm.addEventListener('click',function (event)
+                        {
+                            console.log("clickcard")
+                                    
+                            var currentCardValue = event.currentTarget.value
+                            if(currentCardValue.isFaceDown === true)
+                            {
+                                    for(var cardIdx=0; cardIdx<cardList.length; cardIdx++)
+                                    {
+                                        if(cardElm.id === currentCardValue.id)
+                                        {
+                                            cardElm.isFaceDown = false
+                                        }
+                                    }
+                                    renderCardList()
+
+                                    setTimeout(function()
+                                    {
+                                        for(var cardIdx=0; cardIdx<cardList.length; cardIdx++)
+                                        {
+                                            cardList[cardIdx].isFaceDown = true
+                                           
+                                        }
+                                        renderCardList()
+                                    }.bind(this),2000)
+                            }
+                        })
+                                
                         cardZoneElm.append(cardElm)
                     }
                 }
 
-                // cardElm.value = card
-                // cardElm.addEventListener('click',function (event)
-                // {
-                    
-                //     var currentCardValue = event.currentTarget.value
-                //     if(currentCardValue.isFaceDown === true)
-                //     {
-                //             for(var cardIdx=0; cardIdx<cardList.length; cardIdx++)
-                //             {
-                //                 if(cardList[cardIdx].id === currentCardValue.id)
-                //                 {
-                //                     cardList[cardIdx].isFaceDown = false
-                //                 }
-                //             }
-                //             renderCardList()
-                //             setTimeout(function()
-                //             {
-                //                 for(var cardIdx=0; cardIdx<cardList.length; cardIdx++)
-                //                 {
-                //                     cardList[cardIdx].isFaceDown = true
-                //                 }
-                //                 renderCardList()
-                //             }.bind(this),2000)
-                //     }
-                // })
+               
       
 
     </script>
