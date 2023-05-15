@@ -147,37 +147,74 @@
         var CARD_NUMBER = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'] 
         var cardList = new Array(52)
 
-        // function shuffleCardList(array){
-        //     for(let i =0;i<array.length;i++){
-        //         const j = Math.floor(Math.random()*(i+1));
-        //         array[i]=array[j];
-        //         array[j]=array[i];
-        //     }
-
-        // }
+        function generateCards ()
+        {
+            let temp =0;
+            for(let i=0; i<CARD_TYPE.length; i++)
+            {
+                for(let j=0; j<CARD_NUMBER.length; j++)
+                {
+                    cardList[temp] = new Array(2);
+                    cardList[temp][0] = CARD_TYPE[i];
+                    cardList[temp][1] = CARD_NUMBER[j];
+                    temp++
+                    console.log(cardList[temp]);
+                }
+            }
+        }
         
         window.onload = function (event) 
         {
-            let temp =0;
-            for(type of CARD_TYPE){
-                for(num of CARD_NUMBER){
-                    cardList[temp] = new Array(2);
-                    cardList[temp][0]=type;
-                    cardList[temp][1]=num;
-                    console.log(cardList[temp]);
-                    temp++;
-
-                }
-            }
-           shuffleCardList();
-            renderCardList();  
-              
+            generateCards();
+            shuffleCardList();
+            renderCardList();     
+            //randomCardList();
         }
+
         function buttonclick (){ 
             console.log("click")
-           renderCardList();
+            renderCardList();
             shuffleCardList();
         }
+
+          
+        function random(max) 
+        {
+              return parseInt(Math.random() * max) % max
+        }
+
+        function shuffleCardList() 
+        {
+                cardList.sort(function() {
+                return 0.5 - Math.random();})
+        }
+
+        // function randomCardList ()
+        // {
+        //     cardList=[]
+        //     for(let i=0; i<CARD_TYPE.length; i++)
+        //     {
+        //         for(let j=0; j<CARD_NUMBER.length; j++)
+        //         {
+        //             cardList.push(
+        //                 {
+        //                     id: i+'_' + J + '_1',
+        //                     value : [[CARD_TYPE[i]],CARD_NUMBER[j]],
+        //                     isFaceDown : !!(Math.round(Math.random()%2))
+        //                 }
+        //             )
+        //             cardList.push(
+        //                 {
+        //                     id: i+'_' + J + '_2',
+        //                     value : [[CARD_TYPE[i]],CARD_NUMBER[j]],
+        //                     isFaceDown : !!(Math.round(Math.random()%2))
+        //                 }
+        //             )
+        //         }
+        //     }
+        //     shuffleCardList()
+        // }
+        
         const button = document.querySelector('button');
         button.addEventListener('click',function(){buttonclick()});
         
@@ -225,17 +262,32 @@
                     }
                 }
 
-       
-        
-        function random(max) {
-              return parseInt(Math.random() * max) % max
-          }
-          function shuffleCardList() 
-        {
-                 cardList.sort(function() {
-                return 0.5 - Math.random();})
-        }
-        
+                // cardElm.value = card
+                // cardElm.addEventListener('click',function (event)
+                // {
+                    
+                //     var currentCardValue = event.currentTarget.value
+                //     if(currentCardValue.isFaceDown === true)
+                //     {
+                //             for(var cardIdx=0; cardIdx<cardList.length; cardIdx++)
+                //             {
+                //                 if(cardList[cardIdx].id === currentCardValue.id)
+                //                 {
+                //                     cardList[cardIdx].isFaceDown = false
+                //                 }
+                //             }
+                //             renderCardList()
+                //             setTimeout(function()
+                //             {
+                //                 for(var cardIdx=0; cardIdx<cardList.length; cardIdx++)
+                //                 {
+                //                     cardList[cardIdx].isFaceDown = true
+                //                 }
+                //                 renderCardList()
+                //             }.bind(this),2000)
+                //     }
+                // })
+      
 
     </script>
 </body>
