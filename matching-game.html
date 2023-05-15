@@ -5,21 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>matching-game</title>
+   
     <style>
-        .board {
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            right: 0;
+        body {
             background-color: green;
-            border: 1px solid black;
         }
+        
         .footer button
         {
             position: fixed;
-            bottom: 0;
             left: 0;
+            bottom: 0;
             width: 100%;
             height: 10%;
             font-Size:30px;
@@ -38,25 +34,26 @@
         .player-zone {
             display: flex;
             flex-direction:column;
-            border: 1px solid black;
             position: absolute;
             right: 0;
             height: 100%;
             width: 30%;  
+            position: fixed;
            
         }
         .player-player-a {
-            border: 1px solid black;
+            border:3px solid rgb(71, 71, 71);
             height: 45%;
             color: aliceblue;
-           
+            padding:10px;
           
         }
         .player-player-b {
-            border: 1px solid black;
+            border: 3px solid rgb(71, 71, 71);
             height: 45%;
             color: aliceblue;
-           
+            padding:10px;
+            border-top:unset ;
         }
         .player-title {
             text-align: center;
@@ -108,6 +105,7 @@
     </style>
 </head>
 <body>
+    
     <div class="board">
         <div class="board-content">
           <div class="card-zone">
@@ -145,69 +143,39 @@
     </div>
     
     <script>
-        var cardList = [
-                { value: ['♣', 'A'], isFaceDown: true },
-                { value: ['♣', '2'], isFaceDown: false },
-                { value: ['♣', '3'], isFaceDown: true },
-                { value: ['♣', '4'], isFaceDown: false },
-                { value: ['♣', '5'], isFaceDown: true },
-                { value: ['♣', '6'], isFaceDown: true },
-                { value: ['♣', '7'], isFaceDown: true },
-                { value: ['♣', '8'], isFaceDown: false },
-                { value: ['♣', '9'], isFaceDown: true },
-                { value: ['♣', '10'], isFaceDown: true },
-                { value: ['♣', 'J'], isFaceDown: true },
-                { value: ['♣', 'Q'], isFaceDown: true },
-                { value: ['♣', 'K'], isFaceDown: false },
-                { value: ['♥', 'A'], isFaceDown: true },
-                { value: ['♥', '2'], isFaceDown: true },
-                { value: ['♥', '3'], isFaceDown: false },
-                { value: ['♥', '4'], isFaceDown: false },
-                { value: ['♥', '5'], isFaceDown: true },
-                { value: ['♥', '6'], isFaceDown: false },
-                { value: ['♥', '7'], isFaceDown: true },
-                { value: ['♥', '8'], isFaceDown: true },
-                { value: ['♥', '9'], isFaceDown: true },
-                { value: ['♥', '10'], isFaceDown: true },
-                { value: ['♥', 'J'], isFaceDown: true },
-                { value: ['♥', 'Q'], isFaceDown: true },
-                { value: ['♥', 'K'], isFaceDown: false },
-                { value: ['♦', 'A'], isFaceDown: true },
-                { value: ['♦', '2'], isFaceDown: true },
-                { value: ['♦', '3'], isFaceDown: false },
-                { value: ['♦', '4'], isFaceDown: false },
-                { value: ['♦', '5'], isFaceDown: true },
-                { value: ['♦', '6'], isFaceDown: false },
-                { value: ['♦', '7'], isFaceDown: true },
-                { value: ['♦', '8'], isFaceDown: true },
-                { value: ['♦', '9'], isFaceDown: true },
-                { value: ['♦', '10'], isFaceDown: true },
-                { value: ['♦', 'J'], isFaceDown: true },
-                { value: ['♦', 'Q'], isFaceDown: true },
-                { value: ['♦', 'K'], isFaceDown: false },
-                { value: ['♠', 'A'], isFaceDown: true },
-                { value: ['♠', '2'], isFaceDown: true },
-                { value: ['♠', '3'], isFaceDown: false },
-                { value: ['♠', '4'], isFaceDown: false },
-                { value: ['♠', '5'], isFaceDown: true },
-                { value: ['♠', '6'], isFaceDown: false },
-                { value: ['♠', '7'], isFaceDown: true },
-                { value: ['♠', '8'], isFaceDown: true },
-                { value: ['♠', '9'], isFaceDown: true },
-                { value: ['♠', '10'], isFaceDown: true },
-                { value: ['♠', 'J'], isFaceDown: true },
-                { value: ['♠', 'Q'], isFaceDown: true },
-                { value: ['♠', 'K'], isFaceDown: false },
-                ]
+        var CARD_TYPE = ['♣', '♦', '♥', '♠']
+        var CARD_NUMBER = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'] 
+        var cardList = new Array(52)
 
+        // function shuffleCardList(array){
+        //     for(let i =0;i<array.length;i++){
+        //         const j = Math.floor(Math.random()*(i+1));
+        //         array[i]=array[j];
+        //         array[j]=array[i];
+        //     }
+
+        // }
+        
         window.onload = function (event) 
         {
-            shuffleCardList();
+            let temp =0;
+            for(type of CARD_TYPE){
+                for(num of CARD_NUMBER){
+                    cardList[temp] = new Array(2);
+                    cardList[temp][0]=type;
+                    cardList[temp][1]=num;
+                    console.log(cardList[temp]);
+                    temp++;
+
+                }
+            }
+           shuffleCardList();
             renderCardList();  
+              
         }
         function buttonclick (){ 
             console.log("click")
-            renderCardList();
+           renderCardList();
             shuffleCardList();
         }
         const button = document.querySelector('button');
@@ -243,8 +211,8 @@
                         }
                         else{ 
                             cardElm = htmlToElem(
-                                '<div class="card"><div class="card-title">'+cardList[idx].value[0]+' </div><div class="card-body">'+cardList[idx].value[1]+' </div></div>' )
-                            if(cardList[idx].value[0] =='♥' || cardList[idx].value[0] =='♦'){
+                                '<div class="card"><div class="card-title">'+cardList[idx][0]+' </div><div class="card-body">'+cardList[idx][1]+' </div></div>' )
+                            if(cardList[idx][0] =='♥' || cardList[idx][0] =='♦'){
                                 cardElm.classList.add('red')
                             }
                             else
@@ -257,13 +225,12 @@
                     }
                 }
 
-        var CARD_TYPE = ['♣', '♦', '♥', '♠']
-        var CARD_NUMBER = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K']
+       
         
         function random(max) {
               return parseInt(Math.random() * max) % max
           }
-        function shuffleCardList() 
+          function shuffleCardList() 
         {
                  cardList.sort(function() {
                 return 0.5 - Math.random();})
